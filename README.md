@@ -7,7 +7,7 @@ Follow these steps to clone the project, set up a Python environment, and instal
 ### 1. Clone the Repository
 ```bash
 git clone https://github.com/Skill-issue-coding/MLSM-labs.git
-cd MLSM-labs
+cd /path/to/your/project
 ```
 
 ### 2. Create a Virtual Environment
@@ -39,23 +39,26 @@ This installs Pandas, NumPy, SciPy, scikit-learn, seaborn, matplotlib and any ot
 3. Search for “Python: Select Interpreter”.
 4. Browse to the `venv/bin/python` (Mac/Linux) or `venv\Scripts\python.exe` (Windows) and select it.
 
-``
 **In PyCharm:**
 1. Go to **Settings → Project → Python Interpreter**.
 2. Click the gear icon ⚙️ or `Add interpreter` button → **Add** or **Add local interpreter...** 
 3. Choose **Existing environment**.
 4. Browse to the interpreter inside your venv and select it:
-   5. **On mac/linux:**
+
+   **On mac/linux:**
+
    ```bash
    # .venv/bin/python
     /path/to/your/project/venv/bin/python3
     ```
-   6. **On windows:**
+   **On windows:**
+
    ```powershell
    # .venv\Scripts\python.exe
     C:\path\to\your\project\venv\Scripts\python.exe
     ```
-   7. If you’re unsure of the path, run this in Terminal inside your project:
+   If you’re unsure of the path, run this in Terminal inside your project:
+
    ```bash
    which python3
    ```
@@ -77,7 +80,8 @@ python lab1/part1/my_script.py
 - **Terminal (outside IDE):** You must `source venv/bin/activate` every time before running your scripts.
 - **Inside IDE (Run button):** You do **not** need to activate manually — just select the interpreter once.
 - **Integrated terminal:** Depends on settings; often auto-activates if interpreter is selected.
-- 
+
+
 ### 6. Updating Dependencies
 If new packages are added to the project:
 
