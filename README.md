@@ -5,9 +5,20 @@
 Follow these steps to clone the project, set up a Python environment, and install all required dependencies.
 
 ### 1. Clone the Repository
+If you have a folder:
 ```bash
+# Navigate to where you want the project
+cd /path/to/TNM108
+
+# Clone into the current folder (must be empty)
+git clone https://github.com/Skill-issue-coding/MLSM-labs.git .
+```
+
+If you don’t already have a folder prepared:
+```bash
+# Clone into a new folder MLSM-labs
 git clone https://github.com/Skill-issue-coding/MLSM-labs.git
-cd /path/to/your/project
+cd MLSM-labs
 ```
 
 ### 2. Create a Virtual Environment
