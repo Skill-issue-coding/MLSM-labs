@@ -1,0 +1,8 @@
+# General for Python
+__pycache__/
+*.pyc
+.DS_Store
+
+# IDE settings
+.idea/
+# TODO: add .vscode/ here if used
