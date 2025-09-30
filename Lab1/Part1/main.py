@@ -126,8 +126,7 @@ test['Sex'] = labelEncoder.transform(test['Sex'])
 X = np.array(train.drop(['Survived'], axis=1).astype(float))
 y = np.array(train['Survived'])
 
-# train.info()
-
+'''
 # cluster the passenger records into 2: Survived or Not survived
 kmeans = KMeans(n_clusters=2)
 kmeans.fit(X)
@@ -143,4 +142,22 @@ for i in range(len(X)):
     if prediction[0] == y[i]:
         correct += 1
 print(correct/len(X))
+'''
 
+# Improved version with feature scaling
+scaler = MinMaxScaler()
+X_scaled = scaler.fit_transform(X)
+
+kmeans = KMeans(n_clusters=2, max_iter=600, algorithm = 'lloyd')
+kmeans.fit(X_scaled)
+KMeans(algorithm='lloyd', copy_x=True, init='k-means++', max_iter=600,
+ n_clusters=2, n_init=10, random_state=None, tol=0.0001, verbose=0)
+
+correct = 0
+for i in range(len(X)):
+    predict_me = np.array(X[i].astype(float))
+    predict_me = predict_me.reshape(-1, len(predict_me))
+    prediction = kmeans.predict(predict_me)
+    if prediction[0] == y[i]:
+        correct += 1
+print(correct/len(X))
