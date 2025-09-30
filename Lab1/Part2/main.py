@@ -6,7 +6,7 @@ customer_data = pd.read_csv(SHOPPING_DATA_URL)
 
 customer_data = customer_data.drop(['CustomerID', 'Genre', 'Age'], axis=1)
 
-data = customer_data.iloc[:,0:2].values
+data = customer_data[['Annual Income (k$)', 'Spending Score (1-100)']].values
 
 print(data)
 
