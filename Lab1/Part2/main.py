@@ -30,7 +30,7 @@ dendrogram(linked, orientation='top', labels=labelList, distance_sort='descendin
 plt.show()
 
 # Clustering
-cluster = AgglomerativeClustering(n_clusters=5, linkage='ward')
+cluster = AgglomerativeClustering(n_clusters=7, linkage='ward')
 cluster.fit_predict(data)
 plt.scatter(data[:,0],data[:,1], c=cluster.labels_, cmap='rainbow')
 plt.show()
