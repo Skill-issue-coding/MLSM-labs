@@ -14,6 +14,7 @@ test_url = "http://s3.amazonaws.com/assets.datacamp.com/course/Kaggle/test.csv"
 test = pd.read_csv(test_url)
 
 # ----- DATA PREVIEW -----
+
 '''
 # Preview samples from data sets
 print("***** Train_Set *****")
@@ -148,10 +149,9 @@ print(correct/len(X))
 scaler = MinMaxScaler()
 X_scaled = scaler.fit_transform(X)
 
-kmeans = KMeans(n_clusters=2, max_iter=600, algorithm = 'lloyd')
+kmeans = KMeans(algorithm='lloyd', copy_x=True, init='k-means++', max_iter=600,
+ n_clusters=2, n_init=10, random_state=42, tol=0.0001, verbose=0)
 kmeans.fit(X_scaled)
-KMeans(algorithm='lloyd', copy_x=True, init='k-means++', max_iter=600,
- n_clusters=2, n_init=10, random_state=None, tol=0.0001, verbose=0)
 
 correct = 0
 for i in range(len(X)):
@@ -161,3 +161,44 @@ for i in range(len(X)):
     if prediction[0] == y[i]:
         correct += 1
 print(correct/len(X))
+
+# ----- ANSWERS TO QUESTIONS -----
+
+# 1. What are the relevant features of the Titanic dataset. Why are they relevant?
+'''
+    By looking at the K-Means Clustering.pdf the most most relevant features for survival prediction on the Titanic are:
+    1. Pclass - Higher class passengers had priority for lifeboats
+    2. Sex - "Women and children first" policy was enforced
+    3. Age - Children were given priority
+    4. Fare - Correlates with socio-economic status and cabin location
+    5. SibSp/Parch - Family size affected survival chances
+'''
+# 2. Can you find a parameter configuration to get a validation score greater than 62% ?
+'''
+    Yes, by using feature scaling and proper parameter tuning, we can consistently achieve over 62% accuracy. The key improvements are:
+    - Using MinMaxScaler for feature normalization
+    - Setting random_state for reproducible results
+    - Using n_init=10 for better initialization
+    - Removing non-predictive features like PassengerId
+'''
+# 3. What are the advantages/disadvantages of K-Means clustering?
+'''
+    Advantages:
+    - Simple and easy to implement
+    - Fast and efficient for large datasets
+    - Scalable to high-dimensional data
+    - Guaranteed convergence
+    Disadvantages:
+    - Requires pre-specifying number of clusters (K)
+    - Sensitive to initial centroid selection
+    - Assumes spherical clusters of similar size
+    - Sensitive to outliers and feature scaling
+'''
+# 4. How can you address the weaknesses?
+'''
+    For determining K: Use elbow method or silhouette analysis
+    For initialization sensitivity: Use n_init=20 and init='k-means++'
+    For outlier sensitivity: Remove outliers or use robust scaling
+    For feature scaling: Always normalize features before clustering
+    For cluster shape assumptions: Consider DBSCAN for non-spherical clusters
+'''
