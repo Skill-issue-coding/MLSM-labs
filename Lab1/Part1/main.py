@@ -150,7 +150,8 @@ scaler = MinMaxScaler()
 X_scaled = scaler.fit_transform(X)
 
 kmeans = KMeans(algorithm='lloyd', copy_x=True, init='k-means++', max_iter=600,
- n_clusters=2, n_init=10, random_state=42, tol=0.0001, verbose=0)
+ n_clusters=2, n_init=10, random_state=None, tol=0.0001, verbose=0)
+
 kmeans.fit(X_scaled)
 
 correct = 0
