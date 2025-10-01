@@ -78,6 +78,13 @@ train[['Pclass', 'Survived']].groupby(['Pclass'],as_index=False).mean().sort_val
 # print(train[["SibSp", "Survived"]].groupby(['SibSp'], as_index=False).mean().sort_values(by='Survived', ascending=False))
 '''
 
+# Tests
+# pd.set_option('display.max_columns', None)
+# print(train.isna().sum())
+# train.fillna(train.mean(numeric_only=True), inplace=True)
+# print(train.isna().sum())
+# print(train[["Fare", "Survived"]].groupby(['Fare'], as_index=False).mean().sort_values(by='Survived', ascending=True))
+
 '''
 # Plot the graph of "Age vs. Survived":
 g = sns.FacetGrid(train, col='Survived')
@@ -134,6 +141,7 @@ kmeans.fit(X)
 KMeans(algorithm='lloyd', copy_x=True, init='k-means++', max_iter=300, n_clusters=2,
 n_init=10, random_state=None, tol=0.0001, verbose=0)
 
+
 # percentage of passenger records that were clustered correctly
 correct = 0
 for i in range(len(X)):
@@ -151,7 +159,6 @@ X_scaled = scaler.fit_transform(X)
 
 kmeans = KMeans(algorithm='lloyd', copy_x=True, init='k-means++', max_iter=600,
  n_clusters=2, n_init=10, random_state=None, tol=0.0001, verbose=0)
-
 kmeans.fit(X_scaled)
 
 correct = 0
@@ -168,19 +175,19 @@ print(correct/len(X))
 # 1. What are the relevant features of the Titanic dataset. Why are they relevant?
 '''
     By looking at the K-Means Clustering.pdf the most most relevant features for survival prediction on the Titanic are:
-    1. Pclass - Higher class passengers had priority for lifeboats
-    2. Sex - "Women and children first" policy was enforced
+    1. Sex - "Women and children first" policy was enforced
+    2. Pclass - Higher class passengers had priority for lifeboats
     3. Age - Children were given priority
-    4. Fare - Correlates with socio-economic status and cabin location
-    5. SibSp/Parch - Family size affected survival chances
+    4. SibSp/Parch - Family size affected survival chances
+    5. Fare - Correlates with socio-economic status and cabin location
 '''
 # 2. Can you find a parameter configuration to get a validation score greater than 62% ?
 '''
     Yes, by using feature scaling and proper parameter tuning, we can consistently achieve over 62% accuracy. The key improvements are:
-    - Using MinMaxScaler for feature normalization
+    - Using MinMaxScaler for feature normalization (parameters go from 0 to 1)
     - Setting random_state for reproducible results
     - Using n_init=10 for better initialization
-    - Removing non-predictive features like PassengerId
+    - Removing non-predictive features like PassengerId, Name, etc. 
 '''
 # 3. What are the advantages/disadvantages of K-Means clustering?
 '''
@@ -191,15 +198,18 @@ print(correct/len(X))
     - Guaranteed convergence
     Disadvantages:
     - Requires pre-specifying number of clusters (K)
-    - Sensitive to initial centroid selection
+    - Sensitive to initial centroid selection (can pick a bad k-mean)
     - Assumes spherical clusters of similar size
     - Sensitive to outliers and feature scaling
+    - Produces new results for every run
+    - Needs large amount of memory to store the data
 '''
 # 4. How can you address the weaknesses?
 '''
     For determining K: Use elbow method or silhouette analysis
-    For initialization sensitivity: Use n_init=20 and init='k-means++'
+    For initialization sensitivity: Use n_init=10 and init='k-means++'
     For outlier sensitivity: Remove outliers or use robust scaling
     For feature scaling: Always normalize features before clustering
     For cluster shape assumptions: Consider DBSCAN for non-spherical clusters
+    Delete features with none essential data (Know your data)
 '''
