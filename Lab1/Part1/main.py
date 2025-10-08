@@ -113,9 +113,11 @@ plt.show()
 train.fillna(train.mean(numeric_only=True), inplace=True)
 test.fillna(test.mean(numeric_only=True), inplace=True)
 
+# TODO: drop passengerID
+
 # Drop features Name, Ticket, Cabin and Embarked. They will not have significant impact
-train = train.drop(['Name','Ticket', 'Cabin','Embarked'], axis=1)
-test = test.drop(['Name','Ticket', 'Cabin','Embarked'], axis=1)
+train = train.drop(['Name','Ticket', 'Cabin','Embarked', 'PassengerId'], axis=1)
+test = test.drop(['Name','Ticket', 'Cabin','Embarked', 'PassengerId'], axis=1)
 
 # Convert the non-numeric feature 'Sex' to a numerical feature
 labelEncoder = LabelEncoder()
