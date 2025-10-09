@@ -23,7 +23,7 @@ plt.scatter(data[:,0], data[:,1], label='True Position')
 plt.show()
 
 # Dendogram
-linked = linkage(data, 'single')
+linked = linkage(data, 'ward')
 labelList = range(1,201)
 plt.figure(figsize=(10,7))
 dendrogram(linked, orientation='top', labels=labelList, distance_sort='descending', show_leaf_counts=True)
@@ -34,7 +34,7 @@ plt.show()
 # The longest horizontal line ≈ 13 -> passing through 7 vertical lines -> so we have 7 clusters
 
 # Clustering the points
-cluster = AgglomerativeClustering(n_clusters=7, metric='euclidean', linkage='ward')
+cluster = AgglomerativeClustering(n_clusters=5, metric='euclidean', linkage='ward')
 cluster.fit_predict(data)
 plt.xlabel('Annual Income')
 plt.ylabel('Spending Score')
