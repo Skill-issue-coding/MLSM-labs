@@ -8,6 +8,8 @@ from sklearn.pipeline import make_pipeline
 
 from sklearn.base import BaseEstimator, TransformerMixin
 
+from sklearn.linear_model import Ridge
+
 """ Simple Linear Regression
 # scattered data
 rng = np.random.RandomState(1)
@@ -39,7 +41,7 @@ print(model.coef_)
 """
 
 
-""" Polynomial basis functions """
+""" Polynomial basis functions 
 # polynomial projection
 x = np.array([2, 3, 4])
 poly = PolynomialFeatures(3, include_bias=False)
@@ -122,3 +124,16 @@ basis_plot(model)
 
 
 ''' Ridge regression (L2 Regularization) '''
+model = make_pipeline(GaussianFeatures(30), Ridge(alpha=0.1))
+basis_plot(model, title='Ridge Regression')
+
+
+''' Lasso regression (L1 regularization) '''
+from sklearn.linear_model import Lasso
+model = make_pipeline(GaussianFeatures(30), Lasso(alpha=0.001))
+basis_plot(model, title='Lasso Regression')
+"""
+
+
+""" Case Study: Predicting Bicycle Traffic (OPTIONAL PART) """
+
