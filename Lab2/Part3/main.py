@@ -8,6 +8,10 @@ from sklearn.datasets import make_blobs
 
 from sklearn.svm import SVC
 
+from sklearn.datasets import make_circles
+
+from mpl_toolkits import mplot3d
+
 """ Motivating Support Vector Machines """
 X, y = make_blobs(n_samples=50, centers=2, random_state=0, cluster_std=0.60)
 plt.scatter(X[:, 0], X[:, 1], c=y, s=50, cmap='autumn')
@@ -87,8 +91,48 @@ for axi, N in zip(ax, [60, 120]):
 plt.show()
 
 
-""" Beyond linear boundaries: Kernel SVM """
+""" Beyond linear boundaries: Kernel SVM 
+X, y = make_circles(100, factor=.1, noise=.1)
+clf = SVC(kernel='linear').fit(X, y)
+plt.scatter(X[:, 0], X[:, 1], c=y, s=50, cmap='autumn')
+plot_svc_decision_function(clf, plot_support=False)
+plt.show()
 
+r = np.exp(-(X ** 2).sum(1))
+
+ax = plt.subplot(projection='3d')
+ax.scatter3D(X[:, 0], X[:, 1], r, s=50, cmap='autumn')
+ax.view_init(elev=30, azim=30)
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+ax.set_zlabel('r')
+plt.show()
+
+clf = SVC(kernel='rbf', C=1E6)
+clf.fit(X, y)
+
+plt.scatter(X[:, 0], X[:, 1], c=y, s=50, cmap='autumn')
+plot_svc_decision_function(clf)
+plt.scatter(clf.support_vectors_[:, 0], clf.support_vectors_[:, 1], s=300, lw=1, facecolors='none')
+plt.show()
+"""
+
+
+""" Tuning the SVM: Softening Margins """
+X, y = make_blobs(n_samples=100, centers=2, random_state=0, cluster_std=1.2)
+plt.scatter(X[:, 0], X[:, 1], c=y, s=50, cmap='autumn')
+plt.show()
+
+X, y = make_blobs(n_samples=100, centers=2, random_state=0, cluster_std=0.8)
+fig, ax = plt.subplots(1, 2, figsize=(16, 6))
+fig.subplots_adjust(left=0.0625, right=0.95, wspace=0.1)
+for axi, C in zip(ax, [10.0, 0.1]):
+    model = SVC(kernel='linear', C=C).fit(X, y)
+    axi.scatter(X[:, 0], X[:, 1], c=y, s=50, cmap='autumn')
+    plot_svc_decision_function(model, axi)
+    axi.scatter(model.support_vectors_[:, 0],model.support_vectors_[:, 1],s=300, lw=1, facecolors='none')
+    axi.set_title('C = {0:.1f}'.format(C), size=14)
+plt.show()
 
 # 1. What is the basic idea/intuition of SVM?
 # The basic idea behind Support Vector Machines (SVM) is to find the best separating
