@@ -100,3 +100,45 @@ y_pred = knn.predict(X_test)
 
 """ Model Evaluation for k=7 """
 print("Accuracy for k=7: ",metrics.accuracy_score(y_test, y_pred))
+
+""" QUESTIONS
+1. Why choosing a good value for k is important in KNN?
+
+    The value of k is the most critical hyperparameter in KNN because it directly controls the trade-off between,
+    the model's bias and variance, which determines its ability to generalize to new, unseen data.
+    If k is too small the model becomes very complex and has low bias but high variance.
+    It will capture noise and outliers in the training data, leading to overfitting. The decision boundary becomes very jagged.
+    With k=1, a new point is classified based on its single nearest neighbor, which might be an anomalous data point.
+    
+    If k is too large the model becomes very simple and has high bias but low variance.
+    It will oversimplify the model and fail to capture important patterns, leading to underfitting. 
+    The decision boundary becomes overly smooth.
+    With a very large k, the prediction will always be simply the majority class in the entire dataset, ignoring local patterns.
+    
+2. How can you decide a good value for k?
+
+    Using cross-validation on the training set. Define a range of possible k values (e.g., from 1 to 20).
+    For each value of k in that range, perform k-fold cross-validation. 
+    Calculate the average performance metric across all folds for that k.
+    Plot the average performance against the k values.
+    Select the k that gives the highest cross-validation performance. 
+    Often, you look for the simplest model (larger k) that performs just as well as more complex ones, 
+    which is usually found at the "elbow" of the curve where performance starts to plateau or degrade.
+    
+3. Can you use KNN to classify non-linearly separable data?
+
+    .
+    
+4. Is KNN sensible to the number of features in the dataset?
+
+    .
+    
+5. Can you use KNN for a regression problem?
+
+    .
+    
+6. What are the Pros and Cons of KNN?
+
+    .
+
+"""
