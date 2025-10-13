@@ -127,18 +127,39 @@ print("Accuracy for k=7: ",metrics.accuracy_score(y_test, y_pred))
     
 3. Can you use KNN to classify non-linearly separable data?
 
-    .
+    Yes, it creates a highly flexible, piecewise linear decision boundary that can adapt to very complex, non-linear shapes. 
+    The boundary is formed by the Voronoi tessellation of the feature space. 
+    This makes KNN very powerful for datasets where the classes cannot be separated by a simple straight line.
     
 4. Is KNN sensible to the number of features in the dataset?
 
-    .
+    Yes, KNN is highly sensitive to the number of features. As the number of features (dimensions) increases, 
+    the volume of the feature space grows exponentially. This causes the training data to become increasingly sparse.
+    In high-dimensional space, the concept of "nearest neighbors" becomes less meaningful,
+    because the distance between any two points converges to be the same.
+    It becomes much harder to find truly informative neighbors, and the model's performance can degrade significantly.
+    This also makes KNN computationally expensive.
     
 5. Can you use KNN for a regression problem?
 
-    .
+    Yes. The algorithm is called K-Nearest Neighbors Regression. Instead of taking a majority vote for classification, 
+    the prediction for a new data point is the average (or sometimes weighted average) of the target values of its k nearest neighbors.
     
 6. What are the Pros and Cons of KNN?
 
-    .
+    Pros:
+    It's much faster compared to other classification algorithms.
+    No Training Phase so it's a "lazy learner." The model simply stores the training data, making the training step very fast.
+    KNN can be useful in case of nonlinear data.
+    Highly Effective with Large Enough Datasets and can model very complex, non-linear decision boundaries,
+    without assuming any underlying data distribution.
+    
+    Cons:
+    The testing phase of KNN is slower and costlier in terms of time and memory
+    Computationally Expensive Prediction as the "lazy" nature means all the computation is deferred to the prediction time. 
+    Finding the nearest neighbors in a large dataset can be very slow.
+    Memory Intensive and requires storing the entire training dataset.
+    Sensitive to the Curse of Dimensionality. The Euclidean distance is sensitive to magnitudes; 
+    the features with high magnitudes will weight more than the features with low magnitudes
 
 """
