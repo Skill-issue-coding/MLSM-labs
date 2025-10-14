@@ -166,7 +166,7 @@ basis_plot(model, title='Lasso Regression')
     
 4. How many basis functions can you use in the same regression model?
 
-    There is no limit. However, the number is a hyperparameter that must choosen, and it has a critical trade-off.
+    There is no limit. However, the number is a hyperparameter that must be choosen, and it has a critical trade-off.
     Too few and the model will be too simple and underfit the data, failing to capture the underlying trend (high bias).
     Too many and the model will become too complex and overfit the data. 
     It will memorize the noise in the training set instead of learning the generalizable pattern, 
