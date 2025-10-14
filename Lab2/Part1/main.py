@@ -140,10 +140,12 @@ basis_plot(model, title='Lasso Regression')
 
 """ QUESTIONS 
 1. When can you use linear regression?
-
-    When we want to model the relationship between a continuous target (dependent) variable
-    and one or more predictor (independent) variables. Useful for predicting a continuous value
-    based on the assumption that a change in a predictor leads to a constant (linear) change in the output.
+    
+    You can use linear regression when you expect or observe a linear relationship between variables
+    — that is, when the dependent variable can be modeled as a weighted sum of one or more independent
+    variables.
+    It works well as a starting point for regression tasks because it’s fast to fit, easy to interpret, 
+    and provides a baseline model.
     
 2. How can you generalize linear regression models to account for more complex relationships among the data?
     
@@ -153,12 +155,14 @@ basis_plot(model, title='Lasso Regression')
     we can fit a linear model in the new feature space that is non-linear in the original input space.
     The model becomes: y = w₀ + w₁φ₁(x) + w₂φ₂(x) + ... + wₘφₘ(x).
     This is still "linear" because it's linear with respect to the weights w, 
-    but the function φ(x) can be non-linear, allowing us to capture curves, waves, and other complex patterns.
+    but the function φ(x) can be non-linear, allowing us to capture curves, waves, and other complex
+    patterns, simply by projected them into a higher dimension.
     
 3. What are the basis functions?
 
-    They are fixed, non-linear functions that we apply to our input data x to project it into a higher-dimensional space.
-    In this lab we used Polynomial Basis Functions and Gaussian Basis Functions
+    They are fixed, non-linear functions that we apply to our input data x to project it into a 
+    higher-dimensional space.
+    In this lab we used Polynomial Basis Functions and Gaussian Basis Functions.
     
 4. How many basis functions can you use in the same regression model?
 
