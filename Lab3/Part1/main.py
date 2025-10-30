@@ -8,7 +8,6 @@ import statistics
 from math import pi
 from math import e
 
-
 class GaussNB:
     summaries = {}
     target_values = []
