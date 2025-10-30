@@ -24,7 +24,7 @@ class GaussNB:
         """
         separated = [[x for x, t in zip(data, target) if t == c] for c in self.target_values]
         groups = [np.array(separated[0]), np.array(separated[1]), np.array(separated[2])]
-        return np.array(groups)
+        return groups
 
     def summarize(self, data):
         """
@@ -46,11 +46,11 @@ class GaussNB:
             2. yield summary: list of {'mean': 0.0,'stdev': 0.0} for every feature in data
         """
         groups = self.group_by_class(data, target)
-        for index in range(groups.shape[0]):
+        for index in range(len(groups)):
             group = groups[index]
             self.summaries[self.target_values[index]] = {
                 'prior_prob': len(group) / len(data),
-                'summary': [i for i in self.summarize(group)]
+                'summary': list(self.summarize(group))
             }
 
     def normal_pdf(self, x, mean, stdev):
