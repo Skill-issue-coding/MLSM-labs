@@ -125,11 +125,22 @@ print("Accuracy for k=7: ",metrics.accuracy_score(y_test, y_pred))
     Often, you look for the simplest model (larger k) that performs just as well as more complex ones, 
     which is usually found at the "elbow" of the curve where performance starts to plateau or degrade.
     
+    
+    1. Try different values of K and test model performance.
+    2. Use the Elbow method — plot model accuracy against different K values and look for the “elbow point”,
+     where performance stops improving significantly.
+    3. Choose an odd K if you have an even number of classes (to avoid ties).
+    
 3. Can you use KNN to classify non-linearly separable data?
 
     Yes, it creates a highly flexible, piecewise linear decision boundary that can adapt to very complex, non-linear shapes. 
     The boundary is formed by the Voronoi tessellation of the feature space. 
     This makes KNN very powerful for datasets where the classes cannot be separated by a simple straight line.
+    
+    
+    Yes — KNN can handle non-linearly separable data because it doesn’t assume any specific decision
+    boundary shape.
+    The classification depends only on local similarity in feature space, not on linear separability.
     
 4. Is KNN sensible to the number of features in the dataset?
 
@@ -139,6 +150,15 @@ print("Accuracy for k=7: ",metrics.accuracy_score(y_test, y_pred))
     because the distance between any two points converges to be the same.
     It becomes much harder to find truly informative neighbors, and the model's performance can degrade significantly.
     This also makes KNN computationally expensive.
+    
+    
+    Yes — KNN is very sensitive to the number of features (dimensions).
+    As the number of features increases:
+
+    The distance measure becomes less meaningful.
+
+    It may lead to overfitting or poor performance unless you reduce dimensionality.
+    This is known as the Curse of Dimensionality.
     
 5. Can you use KNN for a regression problem?
 

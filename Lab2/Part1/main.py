@@ -170,16 +170,17 @@ basis_plot(model, title='Lasso Regression')
     Too few and the model will be too simple and underfit the data, failing to capture the underlying trend (high bias).
     Too many and the model will become too complex and overfit the data. 
     It will memorize the noise in the training set instead of learning the generalizable pattern, 
-    leading to poor performance on new data (high variance)
+    leading to poor performance on new data (high variance).
     
 5. Can overfitting be a problem? And if so, what can you do about it?
 
     Yes, overfitting is a major problem, especially when using flexible models with many basis functions.
     Regularization is the primary weapon against overfitting in linear models. 
     It works by adding a penalty to the model's loss function that discourages the weights from becoming too large.
-    Ridge Regression adds a penalty proportional to the square of the weights. 
+    Ridge Regression adds a penalty proportional to the square of the weights. (good when all variables contribute 
+    to the outcome but you want to Reduce their overall impact)
     This shrinks weights but rarely sets them to exactly zero. It's very effective at controlling model complexity.
-    Lasso Regression adds a penalty proportional to the absolute value of the weights. 
+    Lasso Regression adds a penalty proportional to the absolute value of the weights. (Good when some variables are unessessary)
     This can drive some weights to exactly zero, effectively performing feature selection and creating a sparser model.
     
 """
