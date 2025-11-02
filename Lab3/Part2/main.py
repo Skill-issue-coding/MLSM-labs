@@ -96,3 +96,26 @@ for i in range(n_faces):
         )
 
 plt.show()
+
+"""
+
+1.  Explain what the program does.
+
+2.  What is your interpretation of the final plot? Which algorithm has better performance
+    in building the unknown parts of the face?
+    
+3.  Download the code from the link above and modify it by adding the results of the following
+    algorithms to the final plot:
+    (a) Regression decision tree with max depth of 10 and max number of features 50
+    (b) Regression decision tree with max depth of 20 and max number of features 50
+    (c) Regression decision tree with max depth of 20 and max number of features 25
+    (d) Random forest with max depth of 10 and max number of features 50
+    (e) Random forest with max depth of 20 and max number of features 50
+    (f) Random forest with max depth of 20 and max number of features 25
+    How do you interpret the results?
+    
+4.  How could performance of random forest be improved? (Hint: have a look at the
+    example of using Haar-like feature in face detection here: https://realpython.com/
+    traditional-face-detection-python/)
+
+"""
