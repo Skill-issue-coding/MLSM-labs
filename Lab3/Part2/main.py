@@ -146,8 +146,6 @@ plt.show()
     example of using Haar-like feature in face detection here: https://realpython.com/
     traditional-face-detection-python/)
     
-    
-
     Random Forest performance can be improved by:
 
     1. Better Features: 
