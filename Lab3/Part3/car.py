@@ -75,3 +75,14 @@ print(df_recall)
 labels_counts = df[6].value_counts()
 print("\nNumber of samples in each class:")
 print(pd.Series(map6).map(labels_counts))
+
+'''
+3. In the section Car Evaluation Quality, we performed the evaluation metrics for linear
+support vector machine, naive bayes, logistic regression and k nearest neighbours. As you
+can see at page 18, they do have a poor performance.
+Find out if there are ML algorithms that perform better on the data cars.csv data set.
+You may test decision trees and random forest as well as other type of SVM.
+
+
+
+'''

@@ -27,12 +27,12 @@ Y=target
 cv = 10 # 10-fold cross-validation
 
 # Reshuffle the data
-'''
+
 np.random.seed(0)
 indices = np.random.permutation(len(X))
 X = X[indices]
 Y = Y[indices]
-'''
+
 
 print('\nlinear regression')
 lin = LinearRegression()
@@ -149,3 +149,23 @@ score = cross_val_score(svm_lin, X[:, mask], Y, cv=cv)
 print("mean R2: %0.2f (+/- %0.2f)" % (score.mean(), score.std() * 2))
 predicted = cross_val_predict(svm_lin, X[:, mask], Y, cv=cv)
 print("MSE: %0.2f" % mean_squared_error(Y, predicted))
+
+
+'''
+1. In the script of the Regression section (the one before the section RFE), we apply cross
+validation with 10 folds. Note that the script does not make any change to the dataset.
+Modify the script in oder to reshuffle the rows of the data set to randomize the cross
+validation folds before applying the cross validation.
+Run again the script but on the reshuffled data set and re-calculate the MSE and R2
+scores. Do you obtain a better performance?
+To know more about reshuffling You can read the part about reshuffling in Section 3.1
+”Cross-validation: evaluating estimator performance” of scikit-learn1.
+
+we gained almost a double in performance and no one is negative. It's most likely because we got the features with bigger impact 
+in the beginning of the process. 
+
+2. What happens if you do reshuffling and RFE? do you get better results than only reshuffling?
+
+No one is negative anymore and the performance is increased.
+
+'''
