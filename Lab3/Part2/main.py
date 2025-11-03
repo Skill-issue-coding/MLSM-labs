@@ -101,8 +101,14 @@ plt.show()
 
 1.  Explain what the program does.
 
+    The program uses the upper half of the face and tries to reconstruct the lower half by predicting the 
+    the pixels given the already known information from the upper half.
+
 2.  What is your interpretation of the final plot? Which algorithm has better performance
     in building the unknown parts of the face?
+    
+    based of our interpretation the method using extra trees is the overall most accurate, but sometimes
+    the other methods can produce a more satisfying result. 
     
 3.  Download the code from the link above and modify it by adding the results of the following
     algorithms to the final plot:
