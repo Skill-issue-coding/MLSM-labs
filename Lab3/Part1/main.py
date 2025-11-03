@@ -1,6 +1,7 @@
-#Part1
+# Part1
 
-# Gauss-Naive Bayes
+# Implementation of a Gaussian Naive Bayes classifier from scratch
+
 import numpy as np
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
@@ -8,7 +9,9 @@ import statistics
 from math import pi
 from math import e
 
+
 class GaussNB:
+    # Class-level attributes to store statistics and target labels
     summaries = {}
     target_values = []
 
@@ -18,11 +21,14 @@ class GaussNB:
     def group_by_class(self, data, target):
         """
         :param data: Training set
-        :param target: the list of class labels labelling data
+        :param target: the list of class labels labeling data
         :return:
-        Separate the data by their target class; that is, create one group for every value of the target class. It returns all the groups
+        Separate the data by their target class;
+        that is, create one group for every value of the target class.
         """
+        # Create a list of arrays, one for each class in target_values
         separated = [[x for x, t in zip(data, target) if t == c] for c in self.target_values]
+        # Convert lists to numpy arrays
         groups = [np.array(separated[0]), np.array(separated[1]), np.array(separated[2])]
         return groups
 
@@ -30,24 +36,26 @@ class GaussNB:
         """
         :param data: a dataset whose rows are arrays of features
         :return:
-        the mean and the stdev for each feature of data.
+        the mean and the standard deviation for each feature of data.
         """
+        # Iterate over columns (features)
         for index in range(data.shape[1]):
-            feature_column = data.T[index]
+            feature_column = data.T[index]  # Extract a single feature column
             yield {'stdev': statistics.stdev(feature_column), 'mean': statistics.mean(feature_column)}
 
     def train(self, data, target):
         """
         :param data: a dataset
-        :param target: the list of class labels labelling data
+        :param target: the list of class labels labeling data
         :return:
         For each target class:
-            1. yield prior_prob: the probability of each class. P(class) eg P(Iris-virginica)
-            2. yield summary: list of {'mean': 0.0,'stdev': 0.0} for every feature in data
+            1. Compute prior probability of the class (P(class))
+            2. Compute summary statistics (mean and stdev) for every feature
         """
         groups = self.group_by_class(data, target)
         for index in range(len(groups)):
             group = groups[index]
+            # Store prior probability and feature summaries per class
             self.summaries[self.target_values[index]] = {
                 'prior_prob': len(group) / len(data),
                 'summary': list(self.summarize(group))
@@ -55,41 +63,36 @@ class GaussNB:
 
     def normal_pdf(self, x, mean, stdev):
         """
-        :param x: the value of a feature F
-        :param mean: Âµ - average of F
-        :param stdev: Ïƒ - standard deviation of F
-        :return: Gaussian (Normal) Density function.
-        N(x; Âµ, Ïƒ) = (1 / 2Ï€Ïƒ) * (e ^ (xâ€“Âµ)^2/-2Ïƒ^2
+        :param x: the value of a feature
+        :param mean: μ - mean of the feature
+        :param stdev: σ - standard deviation of the feature
+        :return: Gaussian (Normal) Probability Density function
+        N(x; μ, σ) = (1 / (√(2π)σ)) * e^(-(x−μ)² / (2σ²))
         """
         variance = stdev ** 2
         exp_squared_diff = (x - mean) ** 2
         exp_power = -exp_squared_diff / (2 * variance)
         exponent = e ** exp_power
-        denominator = ((2 * pi) ** .5) * stdev
+        denominator = ((2 * pi) ** 0.5) * stdev
         normal_prob = exponent / denominator
         return normal_prob
 
     def marginal_pdf(self, joint_probabilities):
         """
-        :param joint_probabilities: list of joint probabilities for each feature
+        :param joint_probabilities: dictionary of joint probabilities for each class
         :return:
-        Marginal Probability Density Function (Predictor Prior Probability)
-        Joint Probability = prior * likelihood
-        Marginal Probability is the sum of all joint probabilities for all classes.
-        marginal_pdf =
-          [P(setosa) * P(sepal length | setosa) * P(sepal width | setosa) * P(petal length | setosa) * P(petal width | setosa)]
-        + [P(versicolour) * P(sepal length | versicolour) * P(sepal width | versicolour) * P(petal length | versicolour) * P(petal width | versicolour)]
-        + [P(virginica) * P(sepal length | verginica) * P(sepal width | verginica) * P(petal length | verginica) * P(petal width | verginica)]
+        Marginal Probability Density Function (normalizing constant).
+        It's the sum of all joint probabilities over all classes.
         """
         marginal_prob = sum(joint_probabilities.values())
         return marginal_prob
 
     def joint_probabilities(self, data):
         """
-        :param data: dataset in a matrix form (rows x col)
+        :param data: a single observation (list or array of feature values)
         :return:
-        Use the normal_pdf(self, x, mean, stdev) to calculate the Normal Probability for each feature
-        Yields the product of all Normal Probabilities and the Prior Probability of the class.
+        Compute the joint probability P(class) * Π P(x_i | class)
+        for each class in target_values.
         """
         joint_probs = {}
         for y in range(self.target_values.shape[0]):
@@ -97,35 +100,29 @@ class GaussNB:
             item = self.summaries[target_v]
             total_features = len(item['summary'])
             likelihood = 1
+            # Compute product of feature likelihoods given the class
             for index in range(total_features):
                 feature = data[index]
                 mean = self.summaries[target_v]['summary'][index]['mean']
-                stdev = self.summaries[target_v]['summary'][index]['stdev'] ** 2
+                stdev = self.summaries[target_v]['summary'][index]['stdev'] ** 2  # Note: squared here
                 normal_prob = self.normal_pdf(feature, mean, stdev)
                 likelihood *= normal_prob
             prior_prob = self.summaries[target_v]['prior_prob']
+            # Joint probability = prior * likelihood
             joint_probs[target_v] = prior_prob * likelihood
         return joint_probs
 
     def posterior_probabilities(self, test_row):
         """
-        :param test_row: single list of features to test; new data
+        :param test_row: single observation to classify
         :return:
-        For each feature (x) in the test_row:
-            1. Calculate Predictor Prior Probability using the Normal PDF N(x; Âµ, Ïƒ). eg = P(feature | class)
-            2. Calculate Likelihood by getting the product of the prior and the Normal PDFs
-            3. Multiply Likelihood by the prior to calculate the Joint Probability.
-        E.g.
-        prior_prob: P(setosa)
-        likelihood: P(sepal length | setosa) * P(sepal width | setosa) * P(petal length | setosa) * P(petal width | setosa)
-        joint_prob: prior_prob * likelihood
-        marginal_prob: predictor prior probability
-        posterior_prob = joint_prob/ marginal_prob
-        Yields a dictionary containing the posterior probability of every class
+        Compute the posterior probability P(class | features)
+        for each possible class using Bayes' theorem.
         """
         posterior_probs = {}
         joint_probabilities = self.joint_probabilities(test_row)
         marginal_prob = self.marginal_pdf(joint_probabilities)
+        # Compute posterior = joint / marginal for each class
         for y in range(self.target_values.shape[0]):
             target_v = self.target_values[y]
             joint_prob = joint_probabilities[target_v]
@@ -134,9 +131,9 @@ class GaussNB:
 
     def get_map(self, test_row):
         """
-        :param test_row: single list of features to test; new data
+        :param test_row: single observation to classify
         :return:
-        Return the target class with the largest posterior probability
+        Return the class with the largest posterior probability (MAP estimate)
         """
         posterior_probs = self.posterior_probabilities(test_row)
         target = max(posterior_probs, key=posterior_probs.get)
@@ -144,10 +141,9 @@ class GaussNB:
 
     def predict(self, data):
         """
-        :param data: test_data
+        :param data: test dataset
         :return:
-        Predict the likeliest target for each row of data.
-        Return a list of predicted targets.
+        Predict the most likely class label for each observation.
         """
         predicted_targets = []
         for row in data:
@@ -157,10 +153,10 @@ class GaussNB:
 
     def accuracy(self, ground_true, predicted):
         """
-        :param ground_true: list of ground true classes of test_data
-        :param predicted: list of predicted classes
+        :param ground_true: list of actual (true) class labels
+        :param predicted: list of predicted class labels
         :return:
-        Calculate the the average performance of the classifier.
+        Compute the classifier’s accuracy as the proportion of correct predictions.
         """
         correct = 0
         for x, y in zip(ground_true, predicted):
@@ -170,14 +166,27 @@ class GaussNB:
 
 
 def main():
+    # Instantiate custom Gaussian Naive Bayes classifier
     nb = GaussNB()
+
+    # Load the Iris dataset from sklearn
     iris = datasets.load_iris()
     data = iris.data
     target = iris.target
+
+    # Store the unique class labels
     nb.target_values = np.unique(target)
+
+    # Split the dataset into training and test sets
     X_train, X_test, y_train, y_test = train_test_split(data, target, test_size=0.3)
+
+    # Train the classifier
     nb.train(X_train, y_train)
+
+    # Predict class labels for the test set
     predicted = nb.predict(X_test)
+
+    # Compute model accuracy
     accuracy = nb.accuracy(y_test, predicted)
     print('Accuracy: %.3f' % accuracy)
 
