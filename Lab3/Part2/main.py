@@ -49,23 +49,26 @@ y_test = test[:, n_pixels // 2 :]
 
 # Fit estimators
 ESTIMATORS = {
-    "Extra trees": ExtraTreesRegressor(n_estimators=10, max_features=32, random_state=0),
-    "K-nn": KNeighborsRegressor(),
-    "Linear regression": LinearRegression(),
-    "Ridge": RidgeCV(),
+    #"Extra trees": ExtraTreesRegressor(n_estimators=10, max_features=32, random_state=0),
+    #"K-nn": KNeighborsRegressor(),
+    #"Linear reg.": LinearRegression(),
+    #"Ridge": RidgeCV(),
     # 3.
     # a.
-    "RDT(10,50)": DecisionTreeRegressor(max_depth=10, max_features=50 ,random_state=0),
+    #"RDT(10,50)": DecisionTreeRegressor(max_depth=10, max_features=50 ,random_state=0),
     # b.
-    "RDT(20,50)": DecisionTreeRegressor(max_depth=20, max_features=50 ,random_state=0),
+    #"RDT(20,50)": DecisionTreeRegressor(max_depth=20, max_features=50 ,random_state=0),
     # c.
-    "RDT(20,25)": DecisionTreeRegressor(max_depth=20, max_features=25 ,random_state=0),
+    #"RDT(20,25)": DecisionTreeRegressor(max_depth=20, max_features=25 ,random_state=0),
     # d.
-    "RF(10,50)": RandomForestRegressor(n_estimators=10, max_depth=10, max_features=50, random_state=0),
+    #"RF(10,50)": RandomForestRegressor(n_estimators=10, max_depth=10, max_features=50, random_state=0),
     # e.
-    "RF(20,50)": RandomForestRegressor(n_estimators=10, max_depth=20, max_features=50, random_state=0),
+    #"RF(20,50)": RandomForestRegressor(n_estimators=10, max_depth=20, max_features=50, random_state=0),
     # f.
-    "RF(20,25)": RandomForestRegressor(n_estimators=10, max_depth=20, max_features=25, random_state=0),
+    #"RF(20,25)": RandomForestRegressor(n_estimators=10, max_depth=20, max_features=25, random_state=0),
+    # 4.
+    "RF Test 1": RandomForestRegressor(n_estimators=250, max_depth=20, max_features=25, random_state=0, min_samples_split=5, min_samples_leaf=2),
+    "RF Test 2": RandomForestRegressor(n_estimators=250, max_depth=20, max_features="sqrt", random_state=0, min_samples_split=5, min_samples_leaf=2),
 }
 
 y_test_predict = dict()
@@ -144,5 +147,26 @@ plt.show()
     traditional-face-detection-python/)
     
     
+
+    Random Forest performance can be improved by:
+
+    1. Better Features: 
+        Create smarter features (like Haar features do for faces) instead of just using raw data
+
+    2. Feature Selection: 
+        Keep only the most important features to reduce noise
+
+    3. Parameter Tuning: 
+        Optimize tree depth, number of trees, and split criteria
+
+    4. Data Preparation: 
+        Handle imbalanced data and scale features properly
+    
+    5. Model Combinations: 
+        Use multiple forests together or with other algorithms
+
+    Key Insight: 
+    Like Haar features show, intelligent feature design often matters more than complex models. 
+    Focus on creating better features rather than just making the model bigger.
 
 """
