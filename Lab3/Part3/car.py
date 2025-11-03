@@ -76,6 +76,33 @@ labels_counts = df[6].value_counts()
 print("\nNumber of samples in each class:")
 print(pd.Series(map6).map(labels_counts))
 
+
+# 3.
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+
+method = 'decision tree'
+clf = DecisionTreeClassifier()
+y_pred = cross_val_predict(clf, X, Y, cv=cv)
+CalcMeasures(method, y_pred, Y)
+
+method = 'random forest'
+clf = RandomForestClassifier()
+y_pred = cross_val_predict(clf, X, Y, cv=cv)
+CalcMeasures(method, y_pred, Y)
+
+method = 'SVC rbf'
+clf = svm.SVC(kernel='rbf')
+y_pred = cross_val_predict(clf, X, Y, cv=cv)
+CalcMeasures(method, y_pred, Y)
+
+print("\nf-measure (with decision tree):")
+print(df_f1)
+print("\nUpdated Precision (with decision tree):")
+print(df_precision)
+print("\nTree Recall (with decision tree):")
+print(df_recall)
+
 '''
 3. In the section Car Evaluation Quality, we performed the evaluation metrics for linear
 support vector machine, naive bayes, logistic regression and k nearest neighbours. As you
