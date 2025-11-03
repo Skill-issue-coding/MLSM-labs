@@ -134,8 +134,15 @@ plt.show()
     (f) Random forest with max depth of 20 and max number of features 25
     How do you interpret the results?
     
+    When looking at the result we see that regression decision tree has a clearer prediction (less noise). 
+    Extra trees is still the best predictor, but sometimes the random forest outperforms it. For example on
+    on the last person. Somehow regression decision tree can sometimes change the ethnicity of a person
+    add facial hair. 
+    
 4.  How could performance of random forest be improved? (Hint: have a look at the
     example of using Haar-like feature in face detection here: https://realpython.com/
     traditional-face-detection-python/)
+    
+    
 
 """
