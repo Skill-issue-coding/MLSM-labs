@@ -118,8 +118,10 @@ plt.show()
 
 1.  Explain what the program does.
 
-    The program uses the upper half of the face and tries to reconstruct the lower half by predicting the 
-    the pixels given the already known information from the upper half.
+    This program takes the top half of face images as input and uses machine learning to predict the bottom half. 
+    It trains four different models to complete missing facial features, 
+    then compares how well each method reconstructs the full face on people it has never seen before. 
+    The goal is to see which algorithm best understands general facial structure to fill in missing parts.
 
 2.  What is your interpretation of the final plot? Which algorithm has better performance
     in building the unknown parts of the face?
