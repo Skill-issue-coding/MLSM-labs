@@ -15,10 +15,12 @@ When looking at the result we see that regression decision tree has a clearer pr
 Random Forest performance can be improved by:
 
     1. Better Features:
-        Create smarter features (like Haar features do for faces) instead of just using raw data
+        Create smarter features (like Haar features do for faces) instead of just using raw data.
+        Haar like feature checks the sum of pixel values in dark regions vs light regions.
+        Adaboost, add waek classifiers together to get a strong one.
 
     2. Feature Selection:
-        Keep only the most important features to reduce noise
+        Keep only the most important features to reduce noise.
 
     3. Parameter Tuning:
         Optimize tree depth, number of trees, and split criteria

@@ -13,8 +13,8 @@ No one is negative anymore and the performance is increased.
 
 _You may test decision trees and random forest as well as other type of SVM._
 
-| Number | Classifier    | Test 1   | Test 2   | Test 3   | Test 4   |
-| ------ | ------------- | -------- | -------- | -------- | -------- |
+| Number | Classifier    | Acc      | Good     | Unacc    | Vgood    |
+| ------ | ------------- |----------|----------|----------|----------|
 | 4      | Decision tree | 0.955729 | 0.898551 | 0.985950 | 0.938462 |
 | 5      | Random forest | 0.963542 | 0.898551 | 0.990909 | 0.938462 |
 | 6      | SVM rbf       | 0.854167 | 0.376812 | 0.990083 | 0.815385 |
