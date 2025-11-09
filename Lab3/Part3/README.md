@@ -2,8 +2,7 @@
 
 _To know more about reshuffling You can read the part about reshuffling in Section 3.1 ”Cross-validation: evaluating estimator performance” of scikit-learn._
 
-We gained almost a double in performance and no one is negative. It's most likely because we got the features with bigger impact
-in the beginning of the process.
+We gained almost a double in performance and no one is negative. It's most likely because we got the features with bigger impact in the beginning of the process.
 
 ## 2. What happens if you do reshuffling and RFE? do you get better results than only reshuffling?
 
@@ -14,7 +13,7 @@ No one is negative anymore and the performance is increased.
 _You may test decision trees and random forest as well as other type of SVM._
 
 | Number | Classifier    | Acc      | Good     | Unacc    | Vgood    |
-| ------ | ------------- |----------|----------|----------|----------|
+| ------ | ------------- | -------- | -------- | -------- | -------- |
 | 4      | Decision tree | 0.955729 | 0.898551 | 0.985950 | 0.938462 |
 | 5      | Random forest | 0.963542 | 0.898551 | 0.990909 | 0.938462 |
 | 6      | SVM rbf       | 0.854167 | 0.376812 | 0.990083 | 0.815385 |
