@@ -112,20 +112,3 @@ print("\nUpdated Precision (with decision tree):")
 print(df_precision)
 print("\nTree Recall (with decision tree):")
 print(df_recall)
-
-'''
-3. In the section Car Evaluation Quality, we performed the evaluation metrics for linear
-support vector machine, naive bayes, logistic regression and k nearest neighbours. As you
-can see at page 18, they do have a poor performance.
-Find out if there are ML algorithms that perform better on the data cars.csv data set.
-You may test decision trees and random forest as well as other type of SVM.
-
-4                  decision tree  0.955729  0.898551  0.985950  0.938462
-5                  random forest  0.963542  0.898551  0.990909  0.938462
-6                        SVM rbf  0.854167  0.376812  0.990083  0.815385
-7                       SVM poly  0.632812  0.449275  0.954545  0.584615
-8                    SVM sigmoid  0.341146  0.000000  0.733884  0.000000
-
-we see that random forest has very good performance.
-
-'''
