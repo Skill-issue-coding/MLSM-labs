@@ -30,18 +30,18 @@ TextRank is a graph-based ranking algorithm primarily used for extractive text s
 
         TextRank iteratively computes a score for each node using the formula:
 
-        ![Equation](https://latex.codecogs.com/svg.image?S(V_i)=(1-d)+d\sum_{V_j%20\in%20In(V_i)}%20\frac{w_{ji}}{\sum_{V_k%20\in%20Out(V_j)}%20w_{jk}}%20S(V_j))
+        ![Equation](https://latex.codecogs.com/svg.image?{\color{Red}S(V_i)=(1-d)&plus;d\sum_{V_j%20\in%20In(V_i)}%20\frac{w_{ji}}{\sum_{V_k%20\in%20Out(V_j)}%20w_{jk}}%20S(V_j)})
 
         Where:  
-        - ![S(V_i)](https://latex.codecogs.com/svg.image?&space;S(V_i)): score of node i
+        - ![S(V_i)](https://latex.codecogs.com/svg.image?{\color{Red}S(V_i)}): score of node i
 
-        - ![d](https://latex.codecogs.com/svg.image?d): damping factor (usually 0.85)
+        - ![d](https://latex.codecogs.com/svg.image?{\color{Red}d}): damping factor (usually 0.85)
 
-        - ![InV_i](https://latex.codecogs.com/svg.image?In(V_i)): nodes pointing to Vi
+        - ![InV_i](https://latex.codecogs.com/svg.image?{\color{Red}In(V_i)}): nodes pointing to Vi
 
-        - ![W_j_i](https://latex.codecogs.com/svg.image?W_j_i): weight of edge from \(V_j\) to \(V_i\)  
+        - ![W_j_i](https://latex.codecogs.com/svg.image?{\color{Red}W_j_i}): weight of edge from \(V_j\) to \(V_i\)  
 
-        - ![sum_V_k epsilon Out(V_j)](https://latex.codecogs.com/svg.image?\sum_{V_k\epsilon&space;Out(V_j)}^{}w_j_k): sum of outgoing edge weights from \(V_j\)  
+        - ![sum_V_k epsilon Out(V_j)](https://latex.codecogs.com/svg.image?{\color{Red}\sum_{V_k\epsilon&space;Out(V_j)}^{}w_j_k}): sum of outgoing edge weights from \(V_j\)  
 
     4. **Rank Words**
 
