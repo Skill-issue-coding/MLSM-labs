@@ -20,7 +20,7 @@ Compare vectors – Measure similarity between documents using a metric like cos
 
 Interpret the result – A cosine similarity close to 1 means the documents are very similar in content, while a value near 0 means they’re quite different. The value can be between -1 and 1, 1 meaning they point in the same direction (angle between them are 0). -1 means they point to the opposite direction, (angle between them are 180).
 
-**Classify text*
+**Classify text**
 
 Convert text to TF-IDF vectors – Each document is transformed into a numerical vector where each value reflects the importance of a word (high for distinctive words, low for common ones).
 
