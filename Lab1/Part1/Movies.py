@@ -31,6 +31,7 @@ movie['target'][0]
 # import CountVectorizer, nltk
 from sklearn.feature_extraction.text import CountVectorizer
 import nltk
+nltk.download('punkt_tab')
 
 # Turn off pretty printing of jupyter notebook... it generates long lines
 from IPython import get_ipython
