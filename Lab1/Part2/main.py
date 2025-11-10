@@ -29,10 +29,6 @@ plt.figure(figsize=(10,7))
 dendrogram(linked, orientation='top', labels=labelList, distance_sort='descending', show_leaf_counts=True)
 plt.show()
 
-# Clustering
-# 1. How many clusters do you have? Explain your answer.
-# The longest horizontal line ≈ 13 -> passing through 7 vertical lines -> so we have 7 clusters
-
 # Clustering the points
 cluster = AgglomerativeClustering(n_clusters=5, metric='euclidean', linkage='ward')
 cluster.fit_predict(data)
@@ -40,10 +36,4 @@ plt.xlabel('Annual Income')
 plt.ylabel('Spending Score')
 plt.scatter(data[:,0],data[:,1], c=cluster.labels_, cmap='rainbow')
 
-# 2. Plotting the clusters
 plt.show()
-
-# 3. Conclusion
-# It looks like people having a smaller income spends as much as people having a higher income. 
-# (If we assume that the average annual income ≈ 50, people having an annual income between 40 and 70 
-# have a lower spending score)

@@ -72,15 +72,6 @@ pca.fit(X_scaled)
 X_pca = pca.transform(X_scaled)
 print("shape of X_pca", X_pca.shape) # let's check the shape of X_pca array
 
-'''
-Q1. Can you choose n_components=2? Can you think of some method to test this?
-'''
-'''
-Yes, you absolutely can choose n_components=2.
-The method to test if this is a good choice is to check the explained variance ratio that is done in code below.
-The result show that the first two components explain a very large portion of the variance,
-confirming that using 2 components is a valid and effective choice for visualization and further modeling.
-'''
 ex_variance = np.var(X_pca,axis=0)
 ex_variance_ratio = ex_variance/np.sum(ex_variance)
 print(ex_variance_ratio)
@@ -102,21 +93,6 @@ plt.xlabel("First Principal Component",fontsize=14)
 plt.ylabel("Second Principal Component",fontsize=14)
 plt.legend()
 plt.show()
-
-'''
-Q2. Create the scatter plot of the third principal component (that is, you combine the third
-principal component with the first and then the second principal component). What can you see
-with the plot? What is the difference?
-'''
-'''
-Plotting code below shows that:
-The First vs Second component plot showed very clear separation. 
-This is because the first component captures the most variance (information) in the data.
-The second component captures the next most and the third component captures even less information.
-Therefore, plots involving the third component will show more overlapping clusters.
-So the first two components are the most important for distinguishing between the two cancer types. 
-The third component adds little value for this specific classification task.
-'''
 
 Xax = X_pca[:, 0]  # First Principal Component
 Yax = X_pca[:, 1]  # Second Principal Component
@@ -159,15 +135,6 @@ plt.colorbar()
 plt.xticks(range(len(cancer.feature_names)),cancer.feature_names,rotation=65,ha='left')
 plt.tight_layout()
 plt.show()
-
-'''
-Q3. Can you tell which feature contribute more towards the 1st PC?
-'''
-'''
-By looking at the pca.components_ (heat-plot) above, "mean concave points" and "mean concavity" look to hold significant weight
-Printing the features with the highest absolute values in the column contribute the most to the first principal component
-This is done in code below:
-'''
 
 # Get the loadings for the first principal component (PC1)
 pc1_loadings = pca.components_[0]

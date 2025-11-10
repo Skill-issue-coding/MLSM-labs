@@ -1,0 +1,65 @@
+# Questions
+
+## 1. Why choosing a good value for k is important in KNN?
+
+The value of k is the most critical hyperparameter in KNN because it directly controls the trade-off between, the model's bias and variance, which determines its ability to generalize to new, unseen data. If k is too small the model becomes very complex and has low bias but high variance. It will capture noise and outliers in the training data, leading to overfitting. The decision boundary becomes very jagged. With k=1, a new point is classified based on its single nearest neighbor, which might be an anomalous data point.
+
+If k is too large the model becomes very simple and has high bias but low variance. It will oversimplify the model and fail to capture important patterns, leading to underfitting. The decision boundary becomes overly smooth. With a very large k, the prediction will always be simply the majority class in the entire dataset, ignoring local patterns.
+
+## 2. How can you decide a good value for k?
+
+Using cross-validation on the training set. Define a range of possible k values (e.g., from 1 to 20). For each value of k in that range, perform k-fold cross-validation. Calculate the average performance metric across all folds for that k. Plot the average performance against the k values. Select the k that gives the highest cross-validation performance. Often, you look for the simplest model (larger k) that performs just as well as more complex ones, which is usually found at the "elbow" of the curve where performance starts to plateau or degrade.
+
+1. Try different values of K and test model performance.
+
+2. Use the Elbow method — plot model accuracy against different K values and look for the “elbow point”, where performance stops improving significantly.
+
+3. Choose an odd K if you have an even number of classes (to avoid ties).
+
+## 3. Can you use KNN to classify non-linearly separable data?
+
+Yes, it creates a highly flexible, piecewise linear decision boundary that can adapt to very complex, non-linear shapes. The boundary is formed by the Voronoi tessellation of the feature space. This makes KNN very powerful for datasets where the classes cannot be separated by a simple straight line.
+
+Yes — KNN can handle non-linearly separable data because it doesn’t assume any specific decision boundary shape. The classification depends only on local similarity in feature space, not on linear separability.
+
+## 4. Is KNN sensible to the number of features in the dataset?
+
+Yes, KNN is highly sensitive to the number of features. As the number of features (dimensions) increases, the volume of the feature space grows exponentially. This causes the training data to become increasingly sparse. In high-dimensional space, the concept of "nearest neighbors" becomes less meaningful, because the distance between any two points converges to be the same. It becomes much harder to find truly informative neighbors, and the model's performance can degrade significantly. This also makes KNN computationally expensive.
+
+Yes — KNN is very sensitive to the number of features (dimensions).
+
+**As the number of features increases:**
+
+    The distance measure becomes less meaningful.
+
+    It may lead to overfitting or poor performance unless you reduce dimensionality.
+
+This is known as the Curse of Dimensionality.
+
+## 5. Can you use KNN for a regression problem?
+
+Yes. The algorithm is called K-Nearest Neighbors Regression. Instead of taking a majority vote for classification, the prediction for a new data point is the average (or sometimes weighted average) of the target values of its k nearest neighbors.
+
+## 6. What are the Pros and Cons of KNN?
+
+**Pros:**
+
+- It's much faster compared to other classification algorithms.
+
+- No Training Phase so it's a "lazy learner." The model simply stores the training data, making the training step very fast.
+
+- KNN can be useful in case of nonlinear data.
+
+- Highly Effective with Large Enough Datasets and can model very complex, non-linear decision boundaries, without assuming any underlying data distribution.
+
+**Cons:**
+
+- The testing phase of KNN is slower and costlier in terms of time and memory
+
+- Computationally Expensive Prediction as the "lazy" nature means all the computation is deferred to the prediction time.
+
+- Finding the nearest neighbors in a large dataset can be very slow.
+
+- Memory Intensive and requires storing the entire training dataset.
+
+- Sensitive to the Curse of Dimensionality. The Euclidean distance is sensitive to magnitudes; the features with high magnitudes will weight more than the features with low magnitudes

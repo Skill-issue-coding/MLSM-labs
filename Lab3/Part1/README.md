@@ -5,15 +5,23 @@ Predict which variant of Iris the flower is.
 Features are:
 
 1) Sepal length
+
 2) Sepal width
+
 3) Petal length
+
 4) Petal width
 
 ## Code structure
+
 1) Split data into train and test.
+
 2) Structure the train data, make an array for each variant of Iris.
+
 3) Then calculate prior probability.
-4) After that calculate the mean and standard deviation for each feature. 
+
+4) After that calculate the mean and standard deviation for each feature.
+
 5) Next step is to get the class with the largest posterior probability.
 
 (Posterior probability is calculated by joint_prob / marginal_prob for each class.

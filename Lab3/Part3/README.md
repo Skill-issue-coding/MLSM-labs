@@ -1,3 +1,5 @@
+# Questions
+
 ## 1. In the script of the Regression section (the one before the section RFE), we apply cross validation with 10 folds. Note that the script does not make any change to the dataset. Modify the script in oder to reshuffle the rows of the data set to randomize the cross validation folds before applying the cross validation. Run again the script but on the reshuffled data set and re-calculate the MSE and R2 scores. Do you obtain a better performance?
 
 _To know more about reshuffling You can read the part about reshuffling in Section 3.1 ”Cross-validation: evaluating estimator performance” of scikit-learn._
