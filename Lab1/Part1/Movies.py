@@ -14,19 +14,19 @@ movie = {
     'fileids': movie_reviews.fileids()
 }
 
-len(movie['data'])
+print(len(movie['data']))
 
 # target names ("classes") are automatically generated from subfolder names
-movie['target_names']
+print(movie['target_names'])
 
 # First file seems to be about a Schwarzenegger movie.
-movie['data'][0][:500]
+print(movie['data'][0][:500])
 
 # first file is in "neg" folder
-movie['fileids'][0]
+print(movie['fileids'][0])
 
 # first file is a negative review and is mapped to 0 index 'neg' in target_names
-movie['target'][0]
+print(movie['target'][0])
 
 # import CountVectorizer, nltk
 from sklearn.feature_extraction.text import CountVectorizer
@@ -51,9 +51,9 @@ fooVzer = CountVectorizer(min_df=1, tokenizer=nltk.word_tokenize)
 
 # Fit and transform
 docs_counts = fooVzer.fit_transform(docs)
-fooVzer.vocabulary_
-docs_counts.shape
-docs_counts.toarray()
+print(fooVzer.vocabulary_)
+print(docs_counts.shape)
+print(docs_counts.toarray())
 
 # Convert raw frequency counts into TF-IDF (Term Frequency -- Inverse Document Frequency) values
 from sklearn.feature_extraction.text import TfidfTransformer
@@ -61,18 +61,18 @@ fooTfmer = TfidfTransformer()
 
 # Again, fit and transform
 docs_tfidf = fooTfmer.fit_transform(docs_counts)
-docs_tfidf.toarray()
+print(docs_tfidf.toarray())
 
 # A list of new documents
 newdocs = ["I have a rose and a lily.", "What a beautiful day."]
 
 # Transform new docs
 newdocs_counts = fooVzer.transform(newdocs)
-newdocs_counts.toarray()
+print(newdocs_counts.toarray())
 
 # Again, transform using tfidf
 newdocs_tfidf = fooTfmer.transform(newdocs_counts)
-newdocs_tfidf.toarray()
+print(newdocs_tfidf.toarray())
 
 # Split data into training and test sets
 from sklearn.model_selection import train_test_split
@@ -86,14 +86,14 @@ movieVzer = CountVectorizer(min_df=2, tokenizer=nltk.word_tokenize, max_features
 
 # Fit and transform using training text
 docs_train_counts = movieVzer.fit_transform(docs_train)
-movieVzer.vocabulary_.get('screen')
-movieVzer.vocabulary_.get('seagal')
-docs_train_counts.shape
+print(movieVzer.vocabulary_.get('screen'))
+print(movieVzer.vocabulary_.get('seagal'))
+print(docs_train_counts.shape)
 
 # Convert raw frequency counts into TF-IDF values
 movieTfmer = TfidfTransformer()
 docs_train_tfidf = movieTfmer.fit_transform(docs_train_counts)
-docs_train_tfidf.shape
+print(docs_train_tfidf.shape)
 
 # Transform test data
 docs_test_counts = movieVzer.transform(docs_test)
@@ -103,6 +103,7 @@ docs_test_tfidf = movieTfmer.transform(docs_test_counts)
 from sklearn.naive_bayes import MultinomialNB
 clf = MultinomialNB()
 clf.fit(docs_train_tfidf, y_train)
+print(clf)
 
 # Predict the test set results and find accuracy
 y_pred = clf.predict(docs_test_tfidf)
