@@ -46,7 +46,7 @@ parameters = {
  'tfidf__use_idf': (True, False),
  'clf__alpha': (1e-2, 1e-3),
 }
-gs_clf = GridSearchCV(text_clf, parameters, cv=5, iid=False, n_jobs=-1) # see how many cores there is and use all
+gs_clf = GridSearchCV(text_clf, parameters, cv=5, n_jobs=-1) # see how many cores there is and use all
 s_clf = gs_clf.fit(twenty_train.data[:400], twenty_train.target[:400])
 
 print(twenty_train.target_names[gs_clf.predict(['God is love'])[0]])
