@@ -2,7 +2,7 @@
 
 ## 1. Explain the TextRank algorithm and how it works
 
-TextRank is a graph-based ranking algorithm primarily used for extractive text summarization and keyword extraction. It’s inspired by PageRank (used by Google for ranking web pages) and works by identifying the most “important” sentences or words in a text. Let’s break it down step by step.
+TextRank is a graph-based ranking algorithm primarily used for extractive text summarization and keyword extraction. It’s inspired by PageRank (used by Google for ranking web pages) and works by identifying the most “important” sentences or words in a text.
 
 1. **Core idea**
 
