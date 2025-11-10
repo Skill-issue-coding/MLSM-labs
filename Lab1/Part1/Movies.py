@@ -25,7 +25,9 @@ from sklearn.feature_extraction.text import CountVectorizer
 import nltk
 
 # Turn off pretty printing of jupyter notebook... it generates long lines
-%pprint
+from IPython import get_ipython
+get_ipython().display_formatter.formatters['text/plain'].pprint = False
+
 
 # Three tiny "documents"
 docs = ['A rose is a rose is a rose is a rose.',
@@ -121,7 +123,7 @@ sklearn.metrics.accuracy_score(y_test, y_pred)
 # Making the Confusion Matrix
 from sklearn.metrics import confusion_matrix
 cm = confusion_matrix(y_test, y_pred)
-cm
+print(cm)
 
 # very short and fake movie reviews
 reviews_new = ['This movie was excellent', 'Absolute joy ride',
@@ -140,4 +142,4 @@ pred = clf.predict(reviews_new_tfidf)
 for review, category in zip(reviews_new, pred):
     print('%r => %s' % (review, movie.target_names[category]))
 
-# Mr. Seagal simply cannot win! 
+# Mr. Seagal simply cannot win!
