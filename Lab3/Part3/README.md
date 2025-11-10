@@ -8,6 +8,7 @@ in the beginning of the process.
 ## 2. What happens if you do reshuffling and RFE? do you get better results than only reshuffling?
 
 No one is negative anymore and the performance is increased.
+Slightly better performance without RFE but RFE runs faster since it removes less important features.
 
 ## 3. In the section Car Evaluation Quality, we performed the evaluation metrics for linear support vector machine, naive bayes, logistic regression and k nearest neighbours. As you can see at page 18, they do have a poor performance. Find out if there are ML algorithms that perform better on the data cars.csv data set
 

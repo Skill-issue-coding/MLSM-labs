@@ -2,7 +2,7 @@
 
 Predict which variant of Iris the flower is.
 
-Features are: 
+Features are:
 
 1) Sepal length
 2) Sepal width
@@ -15,7 +15,6 @@ Features are:
 3) Then calculate prior probability.
 4) After that calculate the mean and standard deviation for each feature. 
 5) Next step is to get the class with the largest posterior probability.
-6) 
 
 (Posterior probability is calculated by joint_prob / marginal_prob for each class.
 Joint probability is prior * likelihood, likelihood is all normal distributions multiplied together.
