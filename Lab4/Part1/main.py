@@ -27,6 +27,29 @@ print(matrix)
 
 """ Computing the tf-idf score """
 
+from sklearn.feature_extraction.text import TfidfTransformer
+tfidf_transformer = TfidfTransformer(norm="l2")
+tfidf_transformer.fit(smatrix)
+
+# print idf values
+feature_names = vectorizer.get_feature_names_out()
+import pandas as pd
+df_idf=pd.DataFrame(tfidf_transformer.idf_, index=feature_names,columns=["idf_weights"])
+# sort ascending
+df_idf.sort_values(by=['idf_weights'])
+print(df_idf)
+
+# tf-idf scores
+tf_idf_vector = tfidf_transformer.transform(smatrix)
+
+# get tfidf vector for first document
+first_document = tf_idf_vector[0] # first document "The sky is blue."
+# print the scores
+df=pd.DataFrame(first_document.T.todense(), index=feature_names, columns=["tfidf"])
+df.sort_values(by=["tfidf"],ascending=False)
+print(df)
+
+""" Document Similarity """
 
 
 
