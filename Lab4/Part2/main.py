@@ -7,7 +7,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.model_selection import GridSearchCV
 from sklearn.datasets import load_files
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
+from sklearn import metrics
 import nltk
 import numpy as np
 
@@ -38,7 +38,6 @@ import numpy as np
 # predicted = text_clf.predict(docs_test)
 # print("SVM accuracy ",np.mean(predicted == twenty_test.target))
 
-# from sklearn import metrics
 # print(metrics.classification_report(twenty_test.target, predicted,
 #  target_names=twenty_test.target_names))
 
@@ -88,4 +87,4 @@ clf = MultinomialNB()
 clf.fit(docs_train_tfidf, y_train)
 
 y_pred = clf.predict(docs_test_tfidf)
-print(accuracy_score(y_test, y_pred))
+print(metrics.accuracy_score(y_test, y_pred))
