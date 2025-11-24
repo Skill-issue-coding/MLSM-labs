@@ -22,7 +22,7 @@ print(movie.filenames[0])
 print(movie.target[0])
 
 docs_train, docs_test, y_train, y_test = train_test_split(movie.data, movie.target, test_size=0.20, random_state=12)
-movieVzer = CountVectorizer(min_df=2, tokenizer=nltk.word_tokenize, max_features=3000)
+movieVzer = CountVectorizer(min_df=2, tokenizer=nltk.word_tokenize, max_features=5000)
 docs_train_counts = movieVzer.fit_transform(docs_train)
 
 print(movieVzer.vocabulary_.get('screen'))
