@@ -6,7 +6,7 @@ from nltk.corpus import movie_reviews
 # Download the dataset (only needed once)
 nltk.download('movie_reviews')
 
-# Now you can access the movie reviews directly — no need for load_files()
+# access the movie reviews directly
 movie = {
     'data': [movie_reviews.raw(fileid) for fileid in movie_reviews.fileids()],
     'target': [0 if fileid.startswith('neg') else 1 for fileid in movie_reviews.fileids()],
