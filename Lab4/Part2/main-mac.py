@@ -11,7 +11,8 @@ from sklearn import metrics
 import nltk
 import numpy as np
 
-MOVIE_DIR: str = 'Lab4/Part2/data/movie_reviews' # could be 'data/movie_reviews'
+# Could be: 'Lab4/Part2/data/movie_reviews' or 'data/movie_reviews'
+MOVIE_DIR: str = 'Lab4/Part2/data/movie_reviews'
 movie = load_files(MOVIE_DIR, shuffle=True)
 
 # Testing / Printing data
