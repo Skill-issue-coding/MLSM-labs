@@ -4,9 +4,9 @@
 
 TF-IDF (Term Frequency–Inverse Document Frequency) is a numerical measure that shows how important a word is in a document compared to a whole collection of documents.
 
-Term Frequency (TF) measures how often a word appears in a document — the more frequent, the higher the value. It then normalizes each word. (If apple appears 2 time in doc 1 and a total of 4 times in all docs -> 2/4 = 0.5)
+Term Frequency (TF) measures how often a word appears in a document — the more frequent, the higher the value. It then normalizes each word. (If apple appears 2 time in doc 1 and a total number of words in doc 1 is 4 -> 2/4 = 0.5)
 
-Inverse Document Frequency (IDF) reduces the weight of words that appear in many documents, since they carry less unique meaning. By taking log of the total number of dokuments and divide it by 1 + the number of documents the term occurs. (if we have 5 docs and apple appears in 3 -> log(5/1+3) = 0.097)
+Inverse Document Frequency (IDF) reduces the weight of words that appear in many documents, since they carry less unique meaning. By taking log of the total number of dokuments and divide it by 1 + the number of documents the term occurs. (if we have 5 docs and apple appears in 3 -> log(5/1+3) = 0.097). In PDF ln((total docs + 1) / (total appearences + 1)) + 1.
 
 By combining both (matrix multiplication), TF-IDF highlights words that are frequent in one document but rare across the total number of documents, making it useful for text analysis, search engines, and keyword extraction.
 
