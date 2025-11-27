@@ -80,4 +80,64 @@ pred = clf.predict(reviews_new_tfidf)
 for review, category in zip(reviews_new, pred):
     print('%r => %s' % (review, movie.target_names[category]))
 
-# TODO: pipeline with grid search
+""" Pipeline """
+
+# Naive Bayes pipeline
+text_clf = Pipeline([
+ ('vect', CountVectorizer(min_df=2, max_features=3000, stop_words='english')),
+ ('tfidf', TfidfTransformer()),
+ ('clf', MultinomialNB()),
+])
+
+# train the model
+text_clf.fit(docs_train, y_train)
+
+# Evaluation of the performance on the test set
+docs_test = y_test
+predicted = text_clf.predict(docs_test)
+print("multinomialBC accuracy ",np.mean(predicted == y_test.target))
+
+# SVM pipeline
+text_clf = Pipeline([
+ ('vect', CountVectorizer(min_df=2, max_features=3000, stop_words='english')),
+ ('tfidf', TfidfTransformer()),
+ ('clf', SGDClassifier(loss='hinge', penalty='l2',alpha=1e-3, random_state=42
+,max_iter=5, tol=None)),
+])
+
+# Evaluation of the performance on the test set
+text_clf.fit(docs_train, y_train)
+predicted = text_clf.predict(docs_test)
+print("SVM accuracy ",np.mean(predicted == y_test.target))
+
+# more detailed performance analysis of the results
+print(metrics.classification_report(movie.target, predicted,
+ target_names=movie.target_names))
+
+# confusion matrix
+print(metrics.confusion_matrix(movie.target, predicted)) # [[TP, FP], [FN, TN]]
+
+""" Grid Search """
+
+# parameters for grid search
+parameters = {
+ 'vect__ngram_range': [(1, 1), (1, 2), (1,3),(2,3)],
+ 'tfidf__use_idf': (True, False),
+ 'clf__alpha': (1e-2, 1e-3, 1e-4),
+}
+
+# parallelize search on multiple CPU cores
+gs_clf = GridSearchCV(text_clf, parameters, cv=5, n_jobs=-1)
+
+# perform the search on a smaller subset of the training data
+gs_clf = gs_clf.fit(docs_train, y_train)
+
+# test a new custom review
+print(movie.target_names[gs_clf.predict(['Best movie ever'])[0]])
+
+# best mean score
+print(gs_clf.best_score_)
+
+# the best parameters setting corresponding to that score
+for param_name in sorted(parameters.keys()):
+ print("%s: %r" % (param_name, gs_clf.best_params_[param_name]))
