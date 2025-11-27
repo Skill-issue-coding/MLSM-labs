@@ -2,6 +2,9 @@
 
 ## 1. Explain the TextRank algorithm and how it works
 
+Textrank divides the text into nodes, with each node being a sentence. For word extraction only nouns and adjectives are keep. Then it compares the amount of same/shared words in each node(sentence) to each other, building a graph. By comparing the words in the nodes to each other we get the edges, which are normalized so it does not favorize long sentences. Edges that are 0 does not create a connection. Then TextRank uses a variation of the pageRank walker that counts the number of weights (connections) each node has, More weights makes the node more important => higher score. The last step is that TextRank takes the nodes with highest score and uses them (in the same original order) as the summary based of how long the summery should be. 
+
+
 TextRank is a graph-based ranking algorithm primarily used for extractive text summarization and keyword extraction. It’s inspired by PageRank (used by Google for ranking web pages) and works by identifying the most “important” sentences or words in a text.
 
 1. **Core idea**
@@ -26,24 +29,7 @@ TextRank is a graph-based ranking algorithm primarily used for extractive text s
 
         - Edge weights can represent co-occurrence frequency.
 
-    3. **Score Nodes**
-
-        TextRank iteratively computes a score for each node using the formula:
-
-        ![Equation](https://latex.codecogs.com/svg.image?{\color{Red}S(V_i)=(1-d)&plus;d\sum_{V_j%20\in%20In(V_i)}%20\frac{w_{ji}}{\sum_{V_k%20\in%20Out(V_j)}%20w_{jk}}%20S(V_j)})
-
-        Where:  
-        - ![S(V_i)](https://latex.codecogs.com/svg.image?{\color{Red}S(V_i)}): score of node i
-
-        - ![d](https://latex.codecogs.com/svg.image?{\color{Red}d}): damping factor (usually 0.85)
-
-        - ![InV_i](https://latex.codecogs.com/svg.image?{\color{Red}In(V_i)}): nodes pointing to Vi
-
-        - ![W_j_i](https://latex.codecogs.com/svg.image?{\color{Red}W_j_i}): weight of edge from \(V_j\) to \(V_i\)  
-
-        - ![sum_V_k epsilon Out(V_j)](https://latex.codecogs.com/svg.image?{\color{Red}\sum_{V_k\epsilon&space;Out(V_j)}^{}w_j_k}): sum of outgoing edge weights from \(V_j\)  
-
-    4. **Rank Words**
+   3. **Rank Words**
 
         - Iterate until scores converge (usually 20–50 iterations).
 
@@ -77,15 +63,7 @@ TextRank is a graph-based ranking algorithm primarily used for extractive text s
 
         - Sort them in the order they appear in the text for readability.
 
-4. **Why It Works**
-
-    - Sentences/words that share content with many others are more central.
-
-    - Graph structure captures interconnections without relying on deep semantics.
-
-    - Iterative scoring naturally balances importance across the entire text.
-
-5. **Advantages**
+4. **Advantages**
 
     - **Unsupervised:** Doesn’t require labeled data.
 
@@ -93,7 +71,7 @@ TextRank is a graph-based ranking algorithm primarily used for extractive text s
 
     - **Flexible:** Can be used for both keywords and summaries.
 
-6. **Limitations**
+5. **Limitations**
 
     - **Context Ignorance:** Doesn’t understand meaning beyond co-occurrence.
 
