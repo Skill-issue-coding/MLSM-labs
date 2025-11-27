@@ -16,17 +16,18 @@ from sklearn.metrics import confusion_matrix
 # Could be: 'Lab4/Part2/data/movie_reviews' or 'data/movie_reviews'
 MOVIE_DIR: str = 'data/movie_reviews'
 movie = load_files(MOVIE_DIR, shuffle=True)
-
+'''
 # Testing / Printing data
 print(len(movie.data))
 print(movie.target_names)
 print(movie.data[0][:500])
 print(movie.filenames[0])
 print(movie.target[0])
-
+'''
 # Split data into training and test sets
 docs_train, docs_test, y_train, y_test = train_test_split(movie.data, movie.target, test_size=0.20, random_state=12)
 
+'''
 # initialize CountVectorizer
 movieVzer = CountVectorizer(min_df=2, max_features=3000, stop_words='english') # use top 3000 words only. 78.25% acc.
 # movieVzer = CountVectorizer(min_df=2, tokenizer=nltk.word_tokenize)         # use all 25K words. Higher accuracy
@@ -79,6 +80,7 @@ pred = clf.predict(reviews_new_tfidf)
 # print out results
 for review, category in zip(reviews_new, pred):
     print('%r => %s' % (review, movie.target_names[category]))
+'''
 
 """ Pipeline """
 
