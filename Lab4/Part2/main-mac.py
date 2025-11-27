@@ -83,22 +83,21 @@ for review, category in zip(reviews_new, pred):
 """ Pipeline """
 
 # Naive Bayes pipeline
-text_clf = Pipeline([
+text_clf_nb = Pipeline([
  ('vect', CountVectorizer(min_df=2, max_features=3000, stop_words='english')),
  ('tfidf', TfidfTransformer()),
  ('clf', MultinomialNB()),
 ])
 
 # train the model
-text_clf.fit(docs_train, y_train)
+text_clf_nb.fit(docs_train, y_train)
 
 # Evaluation of the performance on the test set
-docs_test = y_test
-predicted = text_clf.predict(docs_test)
-print("multinomialBC accuracy ",np.mean(predicted == y_test.target))
+predicted_nb = text_clf_nb.predict(docs_test)
+print("multinomialBC accuracy ",np.mean(predicted_nb == y_test))
 
 # SVM pipeline
-text_clf = Pipeline([
+text_clf_svm = Pipeline([
  ('vect', CountVectorizer(min_df=2, max_features=3000, stop_words='english')),
  ('tfidf', TfidfTransformer()),
  ('clf', SGDClassifier(loss='hinge', penalty='l2',alpha=1e-3, random_state=42
@@ -106,32 +105,83 @@ text_clf = Pipeline([
 ])
 
 # Evaluation of the performance on the test set
-text_clf.fit(docs_train, y_train)
-predicted = text_clf.predict(docs_test)
-print("SVM accuracy ",np.mean(predicted == y_test.target))
+text_clf_svm.fit(docs_train, y_train)
+predicted_svm = text_clf_svm.predict(docs_test)
+print("SVM accuracy ",np.mean(predicted_svm == y_test))
 
 # more detailed performance analysis of the results
-print(metrics.classification_report(movie.target, predicted,
- target_names=movie.target_names))
+print("\nNaive Bayes Classification Report:")
+print(metrics.classification_report(y_test, predicted_nb, target_names=movie.target_names))
+
+print("\nSVM Classification Report:")
+print(metrics.classification_report(y_test, predicted_svm, target_names=movie.target_names))
 
 # confusion matrix
-print(metrics.confusion_matrix(movie.target, predicted)) # [[TP, FP], [FN, TN]]
+# print("\nNaive Bayes Confusion Matrix:")
+# print(metrics.confusion_matrix(movie.target, predicted_nb)) # [[TP, FP], [FN, TN]]
+
+print("\nSVM Confusion Matrix:")
+print(metrics.confusion_matrix(y_test, predicted_svm)) # [[TP, FP], [FN, TN]]
 
 """ Grid Search """
+
+# Fresh pipeline for grid search
+grid_pipeline = Pipeline([
+    ('vect', CountVectorizer(min_df=2, max_features=3000, stop_words='english')),
+    ('tfidf', TfidfTransformer()),
+    ('clf', SGDClassifier(random_state=42)),
+])
 
 # parameters for grid search
 parameters = {
  'vect__ngram_range': [(1, 1), (1, 2), (1,3),(2,3)],
  'tfidf__use_idf': (True, False),
  'clf__alpha': (1e-2, 1e-3, 1e-4),
+ 'clf__max_iter': [1000, 2000]
 }
 
-# parallelize search on multiple CPU cores
-gs_clf = GridSearchCV(text_clf, parameters, cv=5, n_jobs=-1)
+# parallelize search on training data on multiple CPU cores
+gs_clf = GridSearchCV(grid_pipeline, parameters, cv=5, n_jobs=-1, scoring='accuracy')
 
-# perform the search on a smaller subset of the training data
-gs_clf = gs_clf.fit(docs_train, y_train)
+gs_clf = gs_clf.fit(docs_train, y_train) # Train on full training data
 
+# The best estimator from grid search can now be used for predictions
+best_clf = gs_clf.best_estimator_
+
+# Test the best model on the test set - IMPORTANT STEP!
+test_predictions = best_clf.predict(docs_test)
+test_accuracy = np.mean(test_predictions == y_test)
+
+print(f"Grid Search Best CV Score: {gs_clf.best_score_:.3f}")
+print(f"Grid Search Test Accuracy: {test_accuracy:.3f}")
+
+# Test a new custom review
+# test_review = ['Best movie ever']
+positive_review = [
+    "This film is absolutely fantastic! The acting was superb, the storyline was engaging from start to finish, and the cinematography was breathtaking. I was completely captivated throughout the entire movie and would highly recommend it to anyone who loves great cinema."
+]
+negative_review = [
+    "What a complete waste of time. The plot made no sense, the characters were poorly developed, and the dialogue was cringe-worthy. I found myself checking my watch every five minutes waiting for this boring mess to finally end."
+]
+
+# Test the positive review
+positive_pred = gs_clf.predict(positive_review)
+print(f"Positive review: '{positive_review[0][:50]}...' => {movie.target_names[positive_pred[0]]}")
+
+# Test the negative review
+negative_pred = gs_clf.predict(negative_review)
+print(f"Negative review: '{negative_review[0][:50]}...' => {movie.target_names[negative_pred[0]]}")
+
+# prediction = gs_clf.predict(test_review)
+# print(f"Review '{test_review[0]}' => {movie.target_names[prediction[0]]}")
+
+# Best parameters
+print("\nBest parameters from grid search:")
+for param_name in sorted(parameters.keys()):
+    print(f"{param_name}: {gs_clf.best_params_[param_name]}")
+
+
+"""
 # test a new custom review
 print(movie.target_names[gs_clf.predict(['Best movie ever'])[0]])
 
@@ -141,3 +191,6 @@ print(gs_clf.best_score_)
 # the best parameters setting corresponding to that score
 for param_name in sorted(parameters.keys()):
  print("%s: %r" % (param_name, gs_clf.best_params_[param_name]))
+
+"""
+
